@@ -1,0 +1,28 @@
+* Basic commands 
+** Ctrl-x + Ctrl-f = open a file in emacs
+   It will ask for the path to the file, if you want, you can create a path with new directories in it
+   emacs will ask you if you will want to create the new directories that you added in the path then.
+** Ctrl-x + Ctrl-s or :w = save a file
+
+* Org mode
+** Alt-up/down = move headline up or down 
+** TAB/Shit+TAB = promote and demote a headline
+** *bold*, /italic/, _underlined_, =code= and ~verbatim~, +strike-through+
+** Org link format = =[[link][link text]]= 
+** Org link image format = [[image path][text]
+** Tables
+   | col 1                                              | col 2                            | col 3                        | (press tab after printing this pattern, the vertical bars |
+   |----------------------------------------------------+----------------------------------+------------------------------+-----------------------------------------------------------|
+   | write as much as you want and then press TAB       | this will make the vertical bars | allign and adjust your table | will be automatically printed on the following line)      |
+   | press Shitf + arrow to move the text between cells |                                  |                              | (the "-----+" line makes the line above be a header)      |
+   |                                                    |                                  |                              |                                                           |
+** Tasks
+*** Org headlines can also be tasks, you just need to start the header with TODO
+*** press Shoft + right arrow and the TODO keyword will be converted to DONE
+*** TODO you can put subtasks by putting "[ ]" and you can make a completion index with "[0/2]" or "[0%]" and pressing Ctrl+c two times [0/2] [0%]
+    - [ ] dsklfjçsld
+    - [ ] sdçfkjlsdçkjf [0/1] [0%]
+      - [ ]
+
+  
+    
