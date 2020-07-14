@@ -11,5 +11,6 @@ python3
 nvim
 gnome-terminal
 zathura
+firewalld -> sudo systemctl enable --now firewalld
 
 
