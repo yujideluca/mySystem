@@ -30,7 +30,7 @@ import XMonad.Util.NamedScratchpad ------
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
 --
-myTerminal           = "gnome-terminal"
+myTerminal           = "terminal"
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse  = False
@@ -81,6 +81,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- launch dmenu
     , ((modm,                    xK_d), spawn  "dmenu_run")
 
+    --launch emacs (spacemacs)
+    ,((modm .|. controlMask ,    xK_e), spawn "emacs")
+
     --launch firefox
     , ((modm .|. controlMask,    xK_f), spawn "firefox")
 
@@ -98,13 +101,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
             {--SPECIAL KEYS COMMANDS--}
     --Raise volume
-    , ((0,    xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume 0 +5% && amixer set Master unmute")
+    , ((0,    xF86XK_AudioRaiseVolume), spawn "amixer -q sset Master 3%+ && amixer set Master unmute")
 
     --Lower volume
-    , ((0,    xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume 0 -5% && amixer set Master unmute")
+    , ((0,    xF86XK_AudioLowerVolume), spawn "amixer -q sset Master 3%- && amixer set Master unmute")
 
     --Mute Volume
-    , ((0,           xF86XK_AudioMute), spawn "amixer set Master toggle")
+    , ((0,           xF86XK_AudioMute), spawn "amixer -D pulse set Master toggle")
 
     --Printscreen
     , ((0,                   xK_Print), spawn "scrot -q 1 ~/Pictures/prints/%Y-%m-%d-%H:%M:%S.png")
@@ -128,7 +131,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Toggle the status bar gap
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
-    ,((modm,                     xK_t), sendMessage ToggleStruts)
+    , ((modm,                     xK_t), sendMessage ToggleStruts)
 
     -- Move focus to the next window
     , ((modm,                  xK_Tab), windows W.focusDown)
@@ -137,7 +140,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,                xK_Right), windows W.focusDown)
 
     -- Move focus to the previous window
-    , ((modm,                 xK_Left), windows W.focusUp)
+    , ((modm,                    xK_Left), windows W.focusUp)
 
     -- Swap the focused window and the master window
     , ((modm  .|. shiftMask,   xK_Return), windows W.swapMaster)
@@ -154,6 +157,24 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Expand the master area (window space)
     , ((modm,                      xK_Up), sendMessage Expand)
 
+     -- Move focus to the next windowr
+     , ((modm,                      xK_l), windows W.focusDown)
+
+     -- Move focus to the previous window
+     , ((modm,                      xK_h), windows W.focusUp)
+
+     -- Swap the focused window with the next window
+     , ((modm .|. shiftMask,        xK_l), windows W.swapDown)
+
+     -- Swap the focused window with the previous window
+     , ((modm .|. shiftMask,        xK_h), windows W.swapUp)
+
+     -- Shrink the master area (window space)
+     , ((modm,                      xK_j), sendMessage Shrink)
+
+     -- Expand the master area (window space)
+     , ((modm,                      xK_k), sendMessage Expand)
+    
             {--WORKSPCE COMMANDS--}
 
     --  Reset the layouts on the current workspace to default
@@ -171,6 +192,18 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     --shifts to the previous workspace
     , ((mod1Mask .|. shiftMask,  xK_Left), shiftToPrev)
 
+    --moves to the next workspace
+    , ((mod1Mask,               xK_l), nextWS)
+
+    --moves to the previous workspace
+    , ((mod1Mask,                xK_h), prevWS)
+
+    --shifts to the next workspace
+    , ((mod1Mask .|. shiftMask, xK_l), shiftToNext)
+
+    --shifts to the previous workspace
+    , ((mod1Mask .|. shiftMask,  xK_h), shiftToPrev)
+    
             {--LAYOUT COMMANDS--}
 
     -- Rotate through the available layout algorithms
@@ -247,10 +280,10 @@ myLayout = avoidStruts(tiled ||| Full ||| Mirror tiled)
     tiled   = Tall nmaster delta ratio
 
     -- The default number of windows in the master pane
-    nmaster = 1
+    nmaster = 3
 
     -- Default proportion of screen occupied by master pane
-    ratio   = 1/2
+    ratio   = 1/3
 
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
@@ -286,7 +319,7 @@ myManageHook = composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = mempty
+myEventHook = ewmhDesktopsEventHook
 
 ------------------------------------------------------------------------
 -- Status bars and logging
@@ -306,7 +339,7 @@ myEventHook = mempty
 myStartupHook :: X ()
 myStartupHook = do
     spawnOnce "compton &"
-    spawnOnce "feh --bg-center ~/Pictures/walls/snow_forest.jpg &"
+    spawnOnce "feh --bg-fill ~/Pictures/wallpapers/mosaic1.jpg &"
     spawnOnce "redshift -O 3000"
 
 ------------------------------------------------------------------------
@@ -316,7 +349,7 @@ myStartupHook = do
 --
 main = do
     xmproc <- spawnPipe "xmobar -x 0 /home/yuji/.config/xmobar/xmobar.config"
-    xmonad $ docks$ ewmh def
+    xmonad $ docks $ ewmh def
         {
           -- simple stuff
             terminal             = myTerminal
@@ -336,13 +369,13 @@ main = do
             , layoutHook         = myLayout
 
             , manageHook         = myManageHook <+> manageDocks
-            , handleEventHook    = myEventHook
+            , handleEventHook    = handleEventHook def <+> fullscreenEventHook
             , logHook = dynamicLogWithPP xmobarPP
                        { ppOutput          = \x -> hPutStrLn xmproc x
-                       , ppCurrent         = xmobarColor "#AC9EC4" "" . wrap "[" "]" -- Current workspace in xmobar
-                       , ppVisible         = xmobarColor "#AC9EC4" ""                -- Visible but not current workspace
-                       , ppHidden          = xmobarColor "#AC9EC4" "" . wrap "'" ""  -- Hidden workspaces in xmobar
-                       , ppHiddenNoWindows = xmobarColor "#AC9EC4" ""                -- Hidden workspaces (no windows)
+                       , ppCurrent         = xmobarColor "#1DB6F2" "" . wrap "[" "]" -- Current workspace in xmobar
+                       , ppVisible         = xmobarColor "#1DB6F2" ""                -- Visible but not current workspace
+                       , ppHidden          = xmobarColor "#1DB6F2" "" . wrap "'" ""  -- Hidden workspaces in xmobar
+                       , ppHiddenNoWindows = xmobarColor "#1DB6F2" ""                -- Hidden workspaces (no windows)
                        , ppSep             =             "<fc=#AC9EC4> | </fc>"      -- Separators in xmobar
                        , ppUrgent          = xmobarColor "#BF99B9" "" . wrap "!" "!" -- Urgent workspace
                        , ppOrder           = \(ws:_:t:_) -> [ws]
