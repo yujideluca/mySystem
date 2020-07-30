@@ -26,6 +26,11 @@ import XMonad.Util.Run --running protocols such as runInTerm or spawnPipe
 import XMonad.Util.SpawnOnce --spawnOnce command
 import XMonad.Util.NamedScratchpad ------
 
+             {--Layout--}
+import XMonad.Layout.Spacing
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.Reflect
+
 {--VARIABLES--}
 -- The preferred terminal program, which is used in a binding below and by
 -- certain contrib modules.
@@ -136,20 +141,20 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Move focus to the next window
     , ((modm,                  xK_Tab), windows W.focusDown)
 
-    -- Move focus to the next windowr
-    , ((modm,                xK_Right), windows W.focusDown)
+    -- Move focus to the next windowr (inverted due to the reverted layout)
+    , ((modm,                xK_Left), windows W.focusDown)
 
-    -- Move focus to the previous window
-    , ((modm,                    xK_Left), windows W.focusUp)
+    -- Move focus to the previous window (inverted due to the reverted layout)
+    , ((modm,                    xK_Right), windows W.focusUp)
 
     -- Swap the focused window and the master window
     , ((modm  .|. shiftMask,   xK_Return), windows W.swapMaster)
 
-    -- Swap the focused window with the next window
-    , ((modm .|. shiftMask,     xK_Right), windows W.swapDown)
+    -- Swap the focused window with the next window (inverted due to the reverted layout)
+    , ((modm .|. shiftMask,     xK_Left), windows W.swapDown)
 
-    -- Swap the focused window with the previous window
-    , ((modm .|. shiftMask,      xK_Left), windows W.swapUp)
+    -- Swap the focused window with the previous window (inverted due to the reverted layout)
+    , ((modm .|. shiftMask,      xK_Right), windows W.swapUp)
 
     -- Shrink the master area (window space)
     , ((modm,                    xK_Down), sendMessage Shrink)
@@ -157,23 +162,23 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Expand the master area (window space)
     , ((modm,                      xK_Up), sendMessage Expand)
 
-     -- Move focus to the next windowr
-     , ((modm,                      xK_l), windows W.focusDown)
+     -- Move focus to the next windowr (inverted due to the reverted layout)
+     , ((modm,                      xK_h), windows W.focusDown)
 
-     -- Move focus to the previous window
-     , ((modm,                      xK_h), windows W.focusUp)
+     -- Move focus to the previous window (inverted due to the reverted layout)
+     , ((modm,                      xK_l), windows W.focusUp)
 
      -- Swap the focused window with the next window
-     , ((modm .|. shiftMask,        xK_l), windows W.swapDown)
+     , ((modm .|. shiftMask,        xK_h), windows W.swapDown)
 
      -- Swap the focused window with the previous window
-     , ((modm .|. shiftMask,        xK_h), windows W.swapUp)
+     , ((modm .|. shiftMask,        xK_l), windows W.swapUp)
 
      -- Shrink the master area (window space)
-     , ((modm,                      xK_j), sendMessage Shrink)
+     , ((modm,                      xK_k), sendMessage Shrink)
 
      -- Expand the master area (window space)
-     , ((modm,                      xK_k), sendMessage Expand)
+     , ((modm,                      xK_j), sendMessage Expand)
     
             {--WORKSPCE COMMANDS--}
 
@@ -274,19 +279,19 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 -- The available layouts.  Note that each layout is separated by |||,
 -- which denotes layout choice.
 --
-myLayout = avoidStruts(tiled ||| Full ||| Mirror tiled)
+myLayout = avoidStruts( tiled ||| Full )
   where
     -- default tiling algorithm partitions the screen into two panes
-    tiled   = Tall nmaster delta ratio
+    tiled   = spacing 5 $ reflectHoriz $ ThreeCol nmaster delta ratio
 
     -- The default number of windows in the master pane
-    nmaster = 3
-
-    -- Default proportion of screen occupied by master pane
-    ratio   = 1/3
+    nmaster = 1
 
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
+
+    -- Default proportion of screen occupied by master pane
+    ratio   = 1/3
 
 ------------------------------------------------------------------------
 -- Window rules:
@@ -338,7 +343,7 @@ myEventHook = ewmhDesktopsEventHook
 -- By default, do nothing.
 myStartupHook :: X ()
 myStartupHook = do
-    spawnOnce "compton &"
+    spawnOnce "picom &"
     spawnOnce "feh --bg-fill ~/Pictures/wallpapers/mosaic1.jpg &"
     spawnOnce "redshift -O 3000"
 
