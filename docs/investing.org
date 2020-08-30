@@ -1,0 +1,73 @@
+* Warren Buffet's investing model
+  Source: Warren Buffett and the Interpretation of Financial 
+  Statements The Search for the Company with a Durable Competitive Advantage.
+** Three Basic business models of "super companies"
+   -- Basically, the sources of competitive advantages (that should reflect in
+   the market share and earnings through time.
+*** Unique product
+    Coca-cola, Budweiser, Apple etc.
+    Is like buying a piece of the cultural values that the society has 
+*** Unique service
+    Alphabet (Google), Microsoft 
+*** Low cost buyer/seller of a product
+    
+** Consistency in the product leads to concistency in profits 
+** Financial statements
+*** Income Statement
+**** Liquid Revenue
+**** Cost of Revenue
+**** Gross Profit/Gross Profit Margin 
+     gross profit / total revenues = gross profit margin
+     Companies that have excellent long-term economics tend to have *consistently*
+     higher gross profit margins. (the opposite works as well) -> *over 40% of margin
+     tends to be a good indicator of competitive advantage* and a *sector average below 
+     20% usually indicates a industry with high competitivity*
+*** Oerating Expenses
+**** Selling, General and Administrative Expenses
+     Varies more in companies with lower competitive advantage through time.
+     The lower the better, but it varies a lot.
+*** Balance Sheet
+*** Cash Flow Statement
+** Research and Development are Unstable
+  It is hard to keep competitive advantage with patents, there is no guarantee that
+  the company will keep making competitive patents and the research cost is too big.
+
+** Depreciation
+   Depreciation rules the life cycle of some components of a company (such as the value 
+   of machinery). 
+
+* Amondaran
+** Markets make mistakes -> Values may be under/overvaluated
+   And those mistakes are corrected over time
+*** Intrinsic Evaluation
+    The value of an asset is the expected value of the expected cashflow of an asset
+**** Cashflow
+**** Discount rate
+     Represents the discount risk present in these cashflows
+**** Life of the valued asset
+     Necessary time for the mistakes to be corrected
+*** Relative Evaluation
+    Bases in how simmilar assets are priced
+    !!!!Assumes that the market is right in the average, but wrong in indivicual companies!!!!
+**** Use a multiple to adjust all companies to the same proportion
+**** Find companies that are simmilar to the company desired to evaluate 
+     Compare sectors based on their sector and type of service they provide in that sector
+*** Use Option Pricing In the Context of Evaluation 
+    Use option-like models to evaluate companies that have option-like characteristics
+    Eg.: Tech companies with potentially important patents for the future or buying a potentially
+    broken stock (lots of debt, for example)
+*** Intrinsic Value
+    Intended for cashflow-generating assets
+    It is based on a company's expected cashflow, growth and risk.
+**** Expected cash flows (IN ALL SCENARIOS!) on an asset/business over time
+     Usually the discount rate on the value depends on the risk, de riskier, the more discounted
+**** You can aldo adjust the cash flow for risk:
+***** For an asset to have value, the expected cash flows have to be positive over the live of an asset
+***** Assets that generate cash flows early in their life will be worth more than assets that generate cash flows later
+* George Soro's Philosophy
+  Centered in making massive one-way bets on the movements of assets
+  based on macroeconomic analysis. He bets on the rise or fall of those 
+  assets.
+** Market participants directly influence market fundamentals
+   (And that those behaviors lead to booms and bursts)
+

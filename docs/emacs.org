@@ -3,7 +3,8 @@
    It will ask for the path to the file, if you want, you can create a path with new directories in it
    emacs will ask you if you will want to create the new directories that you added in the path then.
 ** Ctrl-x + Ctrl-s or :w = save a file
-
+** Ctrl-x + k = kill buffer
+** Ctrl-x + left/right arrow = move to previous/next buffer
 * Org mode
 ** Alt-up/down = move headline up or down 
 ** TAB/Shit+TAB = promote and demote a headline
