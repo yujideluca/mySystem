@@ -13,6 +13,6 @@ gnome-terminal
 zathura
 firewalld -> sudo systemctl enable --now firewalld
 
-sudo apt-get install emacs compton vim zathura feh compton ranger nemo  -y
+sudo apt-get install emacs compton vim zathura feh compton ranger nemo redshift-gtk -y
 
 
